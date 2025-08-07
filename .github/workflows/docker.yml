@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: arrs-rss-converter
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/arrs-rss-converter
 
 jobs:
   build:
