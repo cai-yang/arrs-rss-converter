@@ -309,7 +309,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     let routes = convert_route.or(health_route);
     
-    let addr = ([127, 0, 0, 1], config.server.port);
+    let addr = (config.server.host.parse::<std::net::IpAddr>().unwrap_or([127, 0, 0, 1].into()), config.server.port);
     info!("RSS转换服务启动在 http://{}:{}", config.server.host, config.server.port);
     info!("使用方法: http://{}:{}/rss.xml", config.server.host, config.server.port);
     info!("健康检查: http://{}:{}/health", config.server.host, config.server.port);
