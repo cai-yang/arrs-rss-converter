@@ -35,7 +35,7 @@ RUN mkdir -p /app/config && chown -R rssconverter:rssconverter /app
 COPY --from=builder /usr/src/app/target/release/arrs-rss-converter /app/
 
 # 复制默认配置文件
-COPY config.toml /app/config/
+COPY config.toml /app/
 
 # 切换到非root用户
 USER rssconverter
