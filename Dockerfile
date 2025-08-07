@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN apt-get update && apt-get install -y \
     pkg-config \
     libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*ca
 
 # 复制构建文件
 COPY Cargo.toml Cargo.lock ./
