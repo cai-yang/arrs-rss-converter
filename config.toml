@@ -1,0 +1,20 @@
+[server]
+host = "127.0.0.1"
+port = 3030
+
+[rss]
+# 配置RSS源地址
+source_url = "https://example.com/rss.xml"
+
+# 可以配置多个RSS源
+# [[rss.sources]]
+# name = "example"
+# url = "https://example.com/rss.xml"
+
+[conversion]
+# 转换规则的优先级设置
+default_priority = 100
+
+# 日志级别
+[logging]
+level = "info"

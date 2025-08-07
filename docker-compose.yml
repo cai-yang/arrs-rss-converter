@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  arrs-rss-converter:
+    image: arrs-rss-converter:latest
+    container_name: arrs-rss-converter
+    ports:
+      - "3030:3030"
+    environment:
+      - RSS_SOURCE_URL=${RSS_SOURCE_URL:-https://example.com/rss.xml}
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=3030
+      - RUST_LOG=${RUST_LOG:-info}
+    volumes:
+      - ./config.toml:/app/config/config.toml:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3030/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
