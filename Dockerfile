@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN apt-get update && apt-get install -y \
     pkg-config \
     libssl-dev \
-    && rm -rf /var/lib/apt/lists/*ca
+    && rm -rf /var/lib/apt/lists/*
 
 # 复制构建文件
 COPY Cargo.toml Cargo.lock ./
@@ -27,15 +27,16 @@ RUN apt-get update && apt-get install -y \
 # 创建非root用户
 RUN groupadd -r rssconverter && useradd -r -g rssconverter rssconverter
 
-# 创建工作目录和配置目录
+# 创建工作目录
 WORKDIR /app
-RUN mkdir -p /app/config && chown -R rssconverter:rssconverter /app
 
 # 复制构建的二进制文件
 COPY --from=builder /usr/src/app/target/release/arrs-rss-converter /app/
 
-# 复制默认配置文件
+# 复制配置文件并设置权限
 COPY config.toml /app/
+RUN chown -R rssconverter:rssconverter /app && \
+    chmod 644 /app/config.toml
 
 # 切换到非root用户
 USER rssconverter

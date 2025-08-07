@@ -88,7 +88,9 @@ curl http://localhost:3030/rss.xml
 | `RSS_SOURCE_URL` | RSS源地址 | `https://example.com/rss.xml` |
 | `SERVER_HOST` | 服务器监听地址 | `0.0.0.0` |
 | `SERVER_PORT` | 服务器端口 | `3030` |
-| `RUST_LOG` | 日志级别 | `info` |
+| `CONVERSION_DEFAULT_PRIORITY` | 转换规则默认优先级 | `100` |
+| `LOGGING_LEVEL` | 应用日志级别 | `info` |
+| `RUST_LOG` | Rust运行时日志级别 | `info` |
 
 ### 配置优先级
 

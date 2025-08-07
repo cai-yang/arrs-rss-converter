@@ -59,11 +59,15 @@ impl Default for AppConfig {
 
 impl AppConfig {
     pub fn load() -> Result<Self, ConfigError> {
+        // 先使用默认配置作为基础
+        let default_config = AppConfig::default();
+        
         let mut builder = Config::builder()
+            .add_source(config::Config::try_from(&default_config)?)
             .add_source(File::with_name("config").required(false))
             .add_source(Environment::with_prefix("RSS_CONVERTER").separator("_"));
 
-        // 支持直接的环境变量
+        // 支持直接的环境变量覆盖
         if let Ok(url) = std::env::var("RSS_SOURCE_URL") {
             builder = builder.set_override("rss.source_url", url)?;
         }
@@ -72,6 +76,12 @@ impl AppConfig {
         }
         if let Ok(port) = std::env::var("SERVER_PORT") {
             builder = builder.set_override("server.port", port)?;
+        }
+        if let Ok(priority) = std::env::var("CONVERSION_DEFAULT_PRIORITY") {
+            builder = builder.set_override("conversion.default_priority", priority)?;
+        }
+        if let Ok(level) = std::env::var("LOGGING_LEVEL") {
+            builder = builder.set_override("logging.level", level)?;
         }
 
         let config = builder.build()?;
