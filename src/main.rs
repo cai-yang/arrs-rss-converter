@@ -118,7 +118,7 @@ impl TitleConverter {
         let conan_rule = TitleRule {
             name: "Detective Conan".to_string(),
             pattern: r"\[([^\]]+)\]\[名侦探柯南\]\[第(\d+)集\s+([^]]+)\]\[([^]]+)\]\[([^]]+)\](?:\[([^]]+)\])?\[([^]]+)\]".to_string(),
-            replacement: " [$1] 名侦探柯南 / Detective Conan - $2 ($4 $7 $5) ".to_string(),
+            replacement: " [$1] Detective Conan - $2 ($4 $7 $5) ".to_string(),
             priority: 1,
         };
         
@@ -353,7 +353,7 @@ mod tests {
     fn test_conan_title_conversion() {
         let converter = TitleConverter::new();
         let original = "[银色子弹字幕组][名侦探柯南][第1170集 食人教室的玄机（后篇）][WEBRIP][简繁日多语MKV][PGS][1080P]";
-        let expected = " [银色子弹字幕组] 名侦探柯南 / Detective Conan - 1170 (WEBRIP 1080P 简繁日多语MKV) ";
+        let expected = " [银色子弹字幕组] Detective Conan - 1170 (WEBRIP 1080P 简繁日多语MKV) ";
         let result = converter.convert_title(original);
         assert_eq!(result, expected);
     }
