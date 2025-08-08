@@ -4,7 +4,7 @@ port = 3030
 
 [rss]
 # 配置RSS源地址
-source_url = "https://example.com/rss.xml"
+source_url = "https://share.dmhy.org/topics/rss/rss.xml?keyword=mkv&sort_id=0&team_id=576&order=date-desc"
 
 # 可以配置多个RSS源
 # [[rss.sources]]

@@ -1,5 +1,5 @@
 use config::{Config, ConfigError, Environment, File};
-use quick_xml::events::{BytesText, Event};
+use quick_xml::events::{BytesCData, BytesText, Event};
 use quick_xml::{Reader, Writer};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -211,7 +211,7 @@ pub async fn fetch_and_convert_rss(url: &str, converter: &TitleConverter) -> Res
                     let converted_title = converter.convert_title(&current_title);
                     
                     // 直接写入转换后的标题作为文本
-                    writer.write_event(Event::Text(BytesText::new(&converted_title)))?;
+                    writer.write_event(Event::CData(BytesCData::new(&converted_title)))?;
                 }
                 writer.write_event(Event::End(e.clone()))?;
             }
